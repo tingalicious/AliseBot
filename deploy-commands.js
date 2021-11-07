@@ -13,6 +13,6 @@ const commands = [
 
 const rest = new REST({ version: '9' }).setToken(token);
 
-rest.put(Routes.applicationGuildCommands(clientID, guildId), { body: commands })
-	.then(() => console.log('successfully registered application commands.'))
+rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
+	.then(() => console.log('Successfully registered application commands.'))
 	.catch(console.error);
