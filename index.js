@@ -1,7 +1,7 @@
 // includes
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
-const fs = require('fs');
+const fs = require('node:fs');
 
 //instantiating new client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
