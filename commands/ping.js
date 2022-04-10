@@ -5,6 +5,6 @@ module.exports = {
         .setName('ping')
         .setDescription('Replies with condie.jpg!'),
     async execute(interaction) {
-        await interaction.reply('\:condie\:');
+        await interaction.reply('condie');
     },
 };
