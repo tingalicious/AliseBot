@@ -6,6 +6,17 @@ const fs = require('node:fs');
 //instantiating new client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
+//instantiate a new collection of event handlers
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
 
 //instantiate collection of commands
 client.commands = new Collection();
@@ -19,11 +30,14 @@ for (const file of commandFiles) {
 }
 
 //when client is ready execute
-client.once('ready', () => {
-	console.log('Ready!');
-});
+/* client.once('ready',  c => {
+	console.log(`Ready! Logged in as ${c.user.tag}`);
+}); */
 
 client.on('interactionCreate', async interaction => {
+
+	console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered in an interaction.`);
+
 	if (!interaction.isCommand()) return;
 
 	const command = client.commands.get(interaction.commandName); 
