@@ -38,6 +38,8 @@ for (const file of commandFiles) {
 
 //setup of command file refresh
 const rest = new REST({ version: '9'}).setToken(token);
+const clientId = token.ClientId;
+const guildId = token.guildId;
 
 (async () => {
 	try {
