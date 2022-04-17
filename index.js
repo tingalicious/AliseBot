@@ -37,8 +37,8 @@ for (const file of commandFiles) {
 
 //setup of command file refresh
 const rest = new REST({ version: '9'}).setToken(token);
-const clientId = token.clientId;
-const guildId = token.guildId;
+const {clientId} = require('./config.json');
+const {guildId} = require('./config.json');
 
 (async () => {
 	try {
