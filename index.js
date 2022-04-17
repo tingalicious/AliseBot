@@ -23,22 +23,21 @@ for (const file of eventFiles) {
 //instantiate collection of commands
 client.commands = new Collection();
 
+//instantiate commands as an array rather than a collection object
+const commands = [];
+
 //read files out of directory and filter to only .js files
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	client.commands.set(command.data.name, command);
+	//client.commands.set(command.data.name, command);
+	commands.push(command.data.toJSON());
 }
-
-//when client is ready execute
-/* client.once('ready',  c => {
-	console.log(`Ready! Logged in as ${c.user.tag}`);
-}); */
 
 //setup of command file refresh
 const rest = new REST({ version: '9'}).setToken(token);
-const clientId = token.ClientId;
+const clientId = token.clientId;
 const guildId = token.guildId;
 
 (async () => {
@@ -55,7 +54,7 @@ const guildId = token.guildId;
 	}
 })();
 
-client.on('interactionCreate', async interaction => {
+ client.on('interactionCreate', async interaction => {
 
 	console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered in an interaction.`);
 
@@ -71,7 +70,7 @@ client.on('interactionCreate', async interaction => {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command', ephemeral: true });
 	}
-});
+}); 
 
 
 //Log bot into discord
