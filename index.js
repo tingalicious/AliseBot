@@ -29,14 +29,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
-//when client is ready execute
-/* client.once('ready',  c => {
-	console.log(`Ready! Logged in as ${c.user.tag}`);
-}); */
-
 client.on('interactionCreate', async interaction => {
-
-	console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered in an interaction.`);
 
 	if (!interaction.isCommand()) return;
 
