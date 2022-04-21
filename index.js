@@ -1,5 +1,4 @@
 // includes
-const { REST } = require('@discordjs/rest');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 const fs = require('node:fs');
@@ -34,23 +33,6 @@ for (const file of commandFiles) {
 /* client.once('ready',  c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
 }); */
-
-//setup of command file refresh
-const rest = new REST({ version: '9'}).setToken(token);
-
-(async () => {
-	try {
-		console.log('Started refreshing application (/) commands.');
-
-		await rest.put(
-			Routes.applicationGuildCommands(clientId, guildId),
-			{ body: commands },
-		);
-		console.log('Successfully reloaded application (/) commands.');
-	} catch (error) {
-		console.error(error);
-	}
-})();
 
 client.on('interactionCreate', async interaction => {
 
